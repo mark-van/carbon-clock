@@ -36,6 +36,8 @@ app.post('/webhook', (req, res) => {
             handleMessage(sender_psid, webhook_event.message);        
         } else if (webhook_event.postback) {
             handlePostback(sender_psid, webhook_event.postback);
+        } else if (webhook_event.optin){
+            handleOptin(sender_psid, webhook_event.optin);
         }
       });
   
@@ -72,6 +74,7 @@ app.get('/webhook', (req, res) => {
       
       } else {
         // Responds with '403 Forbidden' if verify tokens do not match
+        console.log('something happened');
         res.sendStatus(403);      
       }
     }
@@ -149,6 +152,17 @@ function handlePostback(sender_psid, received_postback) {
     }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
+}
+
+
+function handleOptin(sender_psid, received_postback) {
+    let response;
+  
+    // Get the payload for the postback
+    let one_time_notif_token = received_postback.one_time_notif_token;
+    console.log(received_postback.payload);
+    console.log(one_time_notif_token);
+
 }
 
 // Sends response messages via the Send API
