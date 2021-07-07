@@ -90,9 +90,13 @@ function msToTime(s) {
   let secs = s % 60;
   s = (s - secs) / 60;
   let mins = s % 60;
-  let hrs = (s - mins) / 60;
+  s = (s - mins) / 60;
+  let hrs = s % 24;
+  s = (s - hrs) / 24;
+  let days = s % 365;
+  let years = (s - days) / 365;
 
-  return hrs + ':' + mins + ':' + secs + '.' + ms;
+  return years+ 'YRS' + days + 'DAYS' + hrs + ':' + mins + ':' + secs + '.' + ms;
 }
 
   // Handles messages events
@@ -100,7 +104,7 @@ function handleMessage(sender_psid, received_message) {
 
     climateClock();
     let response = {
-      "text": `${clockValue}`
+      "text": `'Must achieve carbon neutrality in:' + ${clockValue}`
     }
     // Sends the response message
     callSendAPI(sender_psid, response);  
