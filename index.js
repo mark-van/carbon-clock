@@ -4,8 +4,11 @@
 const
   express = require('express'),
   //bodyParser = require('body-parser'),
+  axios = require('axios');
   request = require('request'),
   app = express().use(express.json()); // creates express http server
+
+let one_time_notif_token;
 
 // Sets server port and logs message on success//cool
 app.listen(process.env.PORT || 3000, () => console.log('webhook is listening'));
@@ -39,7 +42,6 @@ app.post('/webhook', (req, res) => {
         } else if (webhook_event.optin){
             handleOptin(sender_psid, webhook_event.optin);
         }
-        console.log("none picked");
       });
   
       // Returns a '200 OK' response to all requests
@@ -48,6 +50,10 @@ app.post('/webhook', (req, res) => {
       // Returns a '404 Not Found' if event is not from a page subscription
       res.sendStatus(404);
       console.log("404 thing");
+    }
+    if(one_time_notif_token){
+        console.log("going");
+        sendFollowUp();
     }
   
   });
@@ -161,10 +167,14 @@ function handleOptin(sender_psid, received_postback) {
     let response;
   
     // Get the payload for the postback
-    let one_time_notif_token = received_postback.one_time_notif_token;
-    console.log(received_postback.payload);
+    one_time_notif_token = received_postback.one_time_notif_token;
+    console.log(received_postback.payload);//same as ther payload I sent is when handling the text message
     console.log(one_time_notif_token);
-
+    // Create the payload for a basic text message
+    response = {
+        "text": "Awesome, we'll get back to you when it happens"
+    }
+    callSendAPI(sender_psid, response);
 }
 
 // Sends response messages via the Send API
@@ -190,4 +200,24 @@ function callSendAPI(sender_psid, response) {
         console.error("Unable to send message:" + err);
     }
     }); 
+}
+
+async function sendFollowUp(){
+    try{
+        let post = 'https://graph.facebook.com/v11.0/me/messages?access_token=EAAH3r4IwzVIBAD3sqoaXe13buzaWhMCYoUZAz8Q65OAPufn6Pua0sLjR6Xven8JLUPyFDhHjn7VtUZB0Mpgu73oklNFEY7OESbteTj5nP2I1QZAB0vfOdWVUNHmyV4nUBBdrtFHgGe38xS6LazotE5UYZAtPrXVzZB2rgtqMZA8HeMv5XjpBkn8RFZCz7uHR0IUpLnI9ZBKdUQZDZD';
+        let data = {
+            "recipient": {
+              "one_time_notif_token":"one_time_notif_token"
+            },
+            "message": {
+              "text":"Did this work?"
+            }
+          }; //should be string?
+        let config = {headers: {'Content-Type': 'application/json'}};
+        res = await axios.post(post,data,config);
+        console.log(res.data);
+    } catch (e){
+        console.log(e);
+        console.log("error in followup")
+    }
 }
