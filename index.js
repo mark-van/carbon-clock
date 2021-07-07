@@ -4,7 +4,7 @@
 const
   express = require('express'),
   //bodyParser = require('body-parser'),
-  axios = require('axios');
+  axios = require('axios'),
   request = require('request'),
   app = express().use(express.json()); // creates express http server
 
