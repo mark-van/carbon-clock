@@ -100,7 +100,7 @@ function msToTime(s) {
   let days = s % 365;
   let years = (s - days) / 365;
 
-  return years+ 'YRS ' + days + 'DAYS ' + pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + par(ms,3);
+  return years+ 'YRS ' + days + 'DAYS ' + pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms,3);
 }
 
   // Handles messages events
