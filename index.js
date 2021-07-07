@@ -18,7 +18,7 @@ app.listen(process.env.PORT || 3000, () => console.log('webhook is listening'));
 app.post('/webhook', (req, res) => {  
     //console.log(req);
     let body = req.body;
-    console.log(body);
+    //console.log(body);
     // Checks this is an event from a page subscription
     if (body.object === 'page') {
   
@@ -28,7 +28,7 @@ app.post('/webhook', (req, res) => {
         // Gets the message. entry.messaging is an array, but 
         // will only ever contain one message, so we get index 0
         let webhook_event = entry.messaging[0];
-        console.log(webhook_event);
+        //console.log(webhook_event);
 
          // Get the sender PSID
         let sender_psid = webhook_event.sender.id;
@@ -198,7 +198,7 @@ function callSendAPI(sender_psid, response) {
     }, (err, res, body) => {
     if (!err) {
         console.log('message sent!');
-        console.log(res, body);
+        //console.log(res, body);
     } else {
         console.error("Unable to send message:" + err);
     }
