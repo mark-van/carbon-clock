@@ -93,30 +93,11 @@ function handleMessage(sender_psid, received_message) {
                 "type":"template",
                 "payload": {
                   "template_type":"one_time_notif_req",
-                  "title":"Do you want to Hear Back?",
-                  "payload":  {
-                    "template_type": "generic",
-                    "elements": [{
-                      "title": "Is this the right picture?",
-                      "subtitle": "Tap a button to answer.",
-                      "image_url": "https://i.imgur.com/vVAmpxh.jpeg",
-                      "buttons": [
-                        {
-                          "type": "postback",
-                          "title": "Yes!",
-                          "payload": "yes",
-                        },
-                        {
-                          "type": "postback",
-                          "title": "No!",
-                          "payload": "no",
-                        }
-                      ],
-                    }]
-                  }
-                }
+                  "title":"Hear Back?",
+                  "payload":"hello people"
               }
             }
+        };
 
     } else if (received_message.attachments) {
   
