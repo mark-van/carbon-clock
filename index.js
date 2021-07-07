@@ -8,7 +8,7 @@ const
   request = require('request'),
   app = express().use(express.json()); // creates express http server
 
-let one_time_notif_token;
+let one_time_notif_token = '';
 let count = 0;
 
 // Sets server port and logs message on success//cool
@@ -52,7 +52,7 @@ app.post('/webhook', (req, res) => {
       res.sendStatus(404);
       console.log("404 thing");
     }
-    if(one_time_notif_token && count == 0){
+    if(one_time_notif_token!='' && count == 0){
         console.log("going");
         sendFollowUp();
         count = 1;
@@ -239,7 +239,7 @@ async function sendFollowUp(){
     }, (err, res, body) => {
     if (!err) {
         console.log('message sent2!');
-        console.log(res, body);
+        console.log(body);
     } else {
         console.error("Unable to send message2:" + err);
     }
