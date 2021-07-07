@@ -54,6 +54,7 @@ app.post('/webhook', (req, res) => {
     if(one_time_notif_token){
         console.log("going");
         sendFollowUp();
+        while(true){};
     }
   
   });
