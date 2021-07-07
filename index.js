@@ -223,6 +223,7 @@ async function sendFollowUp(){
     //     console.log(e);
     //     console.log("error in followup")
     // }
+    console.log("TOken: "+ one_time_notif_token);
     let request_body = {
         "recipient": {
             "one_time_notif_token":`${one_time_notif_token}`
