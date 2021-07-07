@@ -83,7 +83,11 @@ function climateClock(){
   let diff = carbonZero.getTime() - currentTime.getTime();
   clockValue = msToTime(diff);
 }
-
+// Pad to 2 or 3 digits, default is 2
+function pad(n, z) {
+  z = z || 2;
+  return ('00' + n).slice(-z); //grab last 2 or 3 digits
+}
 function msToTime(s) {
   let ms = s % 1000;
   s = (s - ms) / 1000;
@@ -96,7 +100,7 @@ function msToTime(s) {
   let days = s % 365;
   let years = (s - days) / 365;
 
-  return years+ 'YRS' + days + 'DAYS' + hrs + ':' + mins + ':' + secs + '.' + ms;
+  return years+ 'YRS ' + days + 'DAYS ' + pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + par(ms,3);
 }
 
   // Handles messages events
