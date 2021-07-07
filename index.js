@@ -197,7 +197,8 @@ function callSendAPI(sender_psid, response) {
         "json": request_body
     }, (err, res, body) => {
     if (!err) {
-        console.log('message sent!')
+        console.log('message sent!');
+        console.log(res, body);
     } else {
         console.error("Unable to send message:" + err);
     }
@@ -205,21 +206,42 @@ function callSendAPI(sender_psid, response) {
 }
 
 async function sendFollowUp(){
-    try{
-        let post = 'https://graph.facebook.com/v11.0/me/messages?access_token=EAAH3r4IwzVIBAD3sqoaXe13buzaWhMCYoUZAz8Q65OAPufn6Pua0sLjR6Xven8JLUPyFDhHjn7VtUZB0Mpgu73oklNFEY7OESbteTj5nP2I1QZAB0vfOdWVUNHmyV4nUBBdrtFHgGe38xS6LazotE5UYZAtPrXVzZB2rgtqMZA8HeMv5XjpBkn8RFZCz7uHR0IUpLnI9ZBKdUQZDZD';
-        let data = {
-            "recipient": {
-              "one_time_notif_token":"one_time_notif_token"
-            },
-            "message": {
-              "text":"Did this work?"
-            }
-          }; //should be string?
-        let config = {headers: {'Content-Type': 'application/json'}};
-        res = await axios.post(post,data,config);
-        console.log(res.data);
-    } catch (e){
-        console.log(e);
-        console.log("error in followup")
+    // try{
+    //     let post = 'https://graph.facebook.com/v11.0/me/messages?access_token=EAAH3r4IwzVIBAD3sqoaXe13buzaWhMCYoUZAz8Q65OAPufn6Pua0sLjR6Xven8JLUPyFDhHjn7VtUZB0Mpgu73oklNFEY7OESbteTj5nP2I1QZAB0vfOdWVUNHmyV4nUBBdrtFHgGe38xS6LazotE5UYZAtPrXVzZB2rgtqMZA8HeMv5XjpBkn8RFZCz7uHR0IUpLnI9ZBKdUQZDZD';
+    //     let data = {
+    //         "recipient": {
+    //           "one_time_notif_token":"one_time_notif_token"
+    //         },
+    //         "message": {
+    //           "text":"Did this work?"
+    //         }
+    //       }; //should be string?
+    //     let config = {headers: {'Content-Type': 'application/json'}};
+    //     res = await axios.post(post,data,config);
+    //     console.log(res.data);
+    // } catch (e){
+    //     console.log(e);
+    //     console.log("error in followup")
+    // }
+    let request_body = {
+        "recipient": {
+            "one_time_notif_token":`${one_time_notif_token}`
+        },
+        "message": {
+            "text":"Did this work?"
+        }
+    }; 
+    request({
+        "uri": "https://graph.facebook.com/v11.0/me/messages",
+        "qs": { "access_token": "EAAH3r4IwzVIBAD3sqoaXe13buzaWhMCYoUZAz8Q65OAPufn6Pua0sLjR6Xven8JLUPyFDhHjn7VtUZB0Mpgu73oklNFEY7OESbteTj5nP2I1QZAB0vfOdWVUNHmyV4nUBBdrtFHgGe38xS6LazotE5UYZAtPrXVzZB2rgtqMZA8HeMv5XjpBkn8RFZCz7uHR0IUpLnI9ZBKdUQZDZD" },
+        "method": "POST",
+        "json": request_body
+    }, (err, res, body) => {
+    if (!err) {
+        console.log('message sent2!');
+        console.log(res, body);
+    } else {
+        console.error("Unable to send message2:" + err);
     }
+    }); 
 }
