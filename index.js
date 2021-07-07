@@ -5,7 +5,9 @@ const
   express = require('express'),
   request = require('request'),
   app = express().use(express.json()); // creates express http server
+  carbonZero = new Date('2050-01-01T00:00:00'); //Representative of UNs misson to achieve carbon neutrality by 2050
 
+let clockValue;
 // Sets server port and logs message on success//cool
 app.listen(process.env.PORT || 3000, () => console.log('webhook is listening'));
  
@@ -76,11 +78,29 @@ app.get('/webhook', (req, res) => {
     }
   }); 
 
+function climateClock(){
+  let currentTime = new Date();
+  let diff = carbonZero.getTime() - currentTime.getTime();
+  clockValue = msToTime(diff);
+}
+
+function msToTime(s) {
+  let ms = s % 1000;
+  s = (s - ms) / 1000;
+  let secs = s % 60;
+  s = (s - secs) / 60;
+  let mins = s % 60;
+  let hrs = (s - mins) / 60;
+
+  return hrs + ':' + mins + ':' + secs + '.' + ms;
+}
+
   // Handles messages events
 function handleMessage(sender_psid, received_message) {
 
+    climateClock();
     let response = {
-      "text": `You sent the message: Now send me an image!`
+      "text": `${clockValue}`
     }
     // Sends the response message
     callSendAPI(sender_psid, response);  
