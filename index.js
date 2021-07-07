@@ -5,7 +5,7 @@ const
   express = require('express'),
   request = require('request'),
   app = express().use(express.json()), // creates express http server
-  carbonZero = new Date('2050-01-01T00:00:00'); //Representative of UNs misson to achieve carbon neutrality by 2050
+  carbonZero = new Date('2050-01-01T00:00:00'); //Representative of UNs mission to achieve carbon neutrality by 2050
 
 let clockValue;
 // Sets server port and logs message on success//cool
@@ -33,7 +33,7 @@ app.post('/webhook', (req, res) => {
 
         // Check if the event is a message or postback and
         // pass the event to the appropriate handler function
-        if (webhook_event.message) {
+        if (webhook_event) {
             handleMessage(sender_psid, webhook_event.message);    
         }    
       });
