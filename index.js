@@ -4,7 +4,7 @@
 const
   express = require('express'),
   request = require('request'),
-  app = express().use(express.json()); // creates express http server
+  app = express().use(express.json()), // creates express http server
   carbonZero = new Date('2050-01-01T00:00:00'); //Representative of UNs misson to achieve carbon neutrality by 2050
 
 let clockValue;
