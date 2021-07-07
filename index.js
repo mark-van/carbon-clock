@@ -104,7 +104,7 @@ function handleMessage(sender_psid, received_message) {
 
     climateClock();
     let response = {
-      "text": `'Must achieve carbon neutrality in:' + ${clockValue}`
+      "text": 'Must achieve carbon neutrality in:\n' + `${clockValue}`
     }
     // Sends the response message
     callSendAPI(sender_psid, response);  
