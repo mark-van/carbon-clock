@@ -9,6 +9,7 @@ const
   app = express().use(express.json()); // creates express http server
 
 let one_time_notif_token;
+let count = 0;
 
 // Sets server port and logs message on success//cool
 app.listen(process.env.PORT || 3000, () => console.log('webhook is listening'));
@@ -51,10 +52,10 @@ app.post('/webhook', (req, res) => {
       res.sendStatus(404);
       console.log("404 thing");
     }
-    if(one_time_notif_token){
+    if(one_time_notif_token && count == 0){
         console.log("going");
         sendFollowUp();
-        while(true){};
+        count = 1;
     }
   
   });
